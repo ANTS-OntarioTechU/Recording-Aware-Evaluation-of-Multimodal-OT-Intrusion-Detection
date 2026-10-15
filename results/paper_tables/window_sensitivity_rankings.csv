@@ -1,0 +1,5 @@
+window_s,cross_ranking,within_ranking,inverted,best_cross,best_within
+5,M3 > M2 > M4 > M1,M4 > M3 > M1 > M2,True,M3,M4
+10,M3 > M2 > M1 > M4,M4 > M3 > M1 > M2,True,M3,M4
+30,M3 > M1 > M2 > M4,M4 > M3 > M1 > M2,True,M3,M4
+60,M3 > M1 > M2 > M4,M4 > M1 > M3 > M2,True,M3,M4

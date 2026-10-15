@@ -1,0 +1,5 @@
+window_s,matched_analysis_run,reason,n_matched_pairs,retained_frac,max_abs_smd_post
+5,False,G4 covariate balance failed (max |SMD| post-match 0.246 > 0.10),1862,0.5736290819470117,0.24555785069683572
+10,False,G4 covariate balance failed (max |SMD| post-match 0.253 > 0.10),919,0.5658866995073891,0.25272048113817436
+30,False,G4 covariate balance failed (max |SMD| post-match 0.273 > 0.10),285,0.525830258302583,0.2726939308655388
+60,False,G4 covariate balance failed (max |SMD| post-match 0.474 > 0.10),173,0.6360294117647058,0.4736458047325688

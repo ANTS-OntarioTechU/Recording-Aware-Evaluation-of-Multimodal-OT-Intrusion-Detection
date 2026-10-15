@@ -1,0 +1,9 @@
+phase,window_s,n_windows,n_labeled,n_buffer,n_background,m4_availability,median_samples_per_window
+attack22h,5,15121,1272,992,7337,0.9849,3.0
+attack22h,10,7561,649,484,3668,0.9851,7.0
+attack22h,30,2521,235,146,1220,0.9853,21.0
+attack22h,60,1261,128,65,608,0.9865,41.0
+benign48h,5,37441,0,0,37441,0.9982,3.0
+benign48h,10,18721,0,0,18721,0.9982,7.0
+benign48h,30,6241,0,0,6241,0.9984,21.0
+benign48h,60,3121,0,0,3121,0.9984,42.0

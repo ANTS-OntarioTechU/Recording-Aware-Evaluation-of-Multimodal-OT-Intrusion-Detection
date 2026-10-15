@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+title: "Recording-Aware Evaluation of Multimodal OT Intrusion Detection"
+message: "If you use this code or the accompanying results, please cite the associated paper, accepted at ICSS 2026."
+type: software
+license: MIT
+authors:
+  - family-names: Ozbek
+    given-names: Mustafa Umut
+    affiliation: Ontario Tech University
+  - family-names: El-Khatib
+    given-names: Khalil
+    affiliation: Ontario Tech University
+  - family-names: Yang
+    given-names: Li
+    affiliation: Ontario Tech University
+abstract: >-
+  Code and frozen result artifacts for recording-aware evaluation of multimodal
+  OT intrusion detection. The notebooks inspect and verify persisted results;
+  they do not provide a complete raw-data-to-model-training workflow.
+version: "0.1.0-rc"
+preferred-citation:
+  type: conference-paper
+  title: "Recording-Aware Evaluation of Multimodal OT Intrusion Detection"
+  authors:
+    - family-names: Ozbek
+      given-names: Mustafa Umut
+    - family-names: El-Khatib
+      given-names: Khalil
+    - family-names: Yang
+      given-names: Li
+  collection-title: "Industrial Control System Security Workshop (ICSS 2026)"
+  year: 2026
+  notes: "Accepted for presentation. Final publication metadata is not yet assigned."

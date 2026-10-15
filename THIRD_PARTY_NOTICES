@@ -1,0 +1,49 @@
+THIRD-PARTY DATA AND MATERIALS
+
+The MIT license in LICENSE applies to original code and related materials as
+specified there. It does not override third-party rights or data-use terms.
+
+ProvICS
+
+Source: TruCyberLab, multimodal-ICS-provenance
+https://huggingface.co/datasets/trucyberlab/multimodal-ICS-provenance
+Analyzed revision: 18b4b0e1359d3d02347301c55f97c3d98f5dab5c
+Dataset-card license: Creative Commons Attribution-NonCommercial 4.0
+International (CC BY-NC 4.0)
+https://creativecommons.org/licenses/by-nc/4.0/
+
+The original raw captures and telemetry are not included. The release includes
+canonicalized ground-truth events, processed window metadata, and detector
+outputs derived from the dataset. Canonicalization assigns event identifiers,
+normalizes timestamps, and records campaign identifiers and durations. These
+materials retain any applicable upstream terms; they are not relicensed under
+MIT. Retain the dataset attribution and license information when sharing them.
+
+Please cite the dataset and its associated paper independently of this code:
+M. N. I. Shibbir and D. K. Tosh, "ProvICS: A provenance-based intrusion
+detection for industrial control systems," 2026.
+https://arxiv.org/abs/2607.05989
+
+HAI 21.03
+
+Source: HIL-based Augmented ICS Security Dataset, The Affiliated Institute of
+ETRI, South Korea
+https://github.com/icsdataset/hai
+
+Only analysis-result summaries are included; raw HAI observations are not
+redistributed here. Obtain the dataset from its maintainers and follow the
+terms applicable to the chosen release. The current upstream README's License
+section names CC BY-SA 4.0, while its Dataset Metadata section names CC BY 4.0.
+This package does not resolve that upstream inconsistency or grant additional
+rights to HAI data.
+
+HAI 21.03 citation:
+H.-K. Shin, W. Lee, J.-H. Yun, and B.-G. Min, "Two ICS Security Datasets and
+Anomaly Detection Contest on the HIL-Based Augmented ICS Testbed," CSET, 2021.
+https://doi.org/10.1145/3474718.3474719
+
+Dependencies and paper
+
+Third-party Python dependencies retain their own licenses and are installed
+separately. The associated paper has been accepted at ICSS 2026; this software
+license does not grant rights to a publisher-formatted paper PDF.

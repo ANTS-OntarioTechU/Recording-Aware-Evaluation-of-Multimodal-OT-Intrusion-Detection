@@ -1,0 +1,11 @@
+# Optional training and raw-input preparation. Install in an isolated environment.
+# Core numerical versions come from the archived Revision-5 Colab requirements.
+-r requirements.txt
+numpy==2.1.3
+pandas==2.2.3
+scikit-learn==1.6.1
+scipy==1.16.3
+pyarrow==18.1.0
+joblib==1.5.3
+huggingface_hub>=0.24,<3
+ipython>=8,<10

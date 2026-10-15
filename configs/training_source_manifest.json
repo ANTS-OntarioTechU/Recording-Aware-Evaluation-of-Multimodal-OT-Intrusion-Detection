@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0",
+  "scope": "training-code packaging, not a new experiment or preregistration",
+  "validation": "syntax, imports, source-definition AST checks and software tests only; no detector fitted",
+  "not_end_to_end_verified": true,
+  "original_training_environment": {
+    "numpy": "2.1.3",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1",
+    "scipy": "1.16.3",
+    "joblib": "1.5.3",
+    "pyarrow": "18.1.0"
+  },
+  "sources": [
+    {
+      "upstream": "run_window_sensitivity.py",
+      "upstream_sha256": "40d32edc82ba81de2bfefcc8cd0bf7ea0eed2fb989072a0c7e4064e9075c6050",
+      "packaged_path": "src/training/isolation_forest.py",
+      "packaging": "selected original definitions; package-relative imports; no mathematical edits",
+      "definitions": {
+        "SEEDS": "615550d4cabde8d879fd038595444fda9dcf1f59549e9cdf5d49d8e918850101",
+        "IF_PARAMS": "905ffce5eeebed0766aea6715e92b24fa7e6fae06ce0c37d1a934c952355cc37",
+        "BENIGN_TRAIN_FRAC": "0c693d0510afb1c74c228676aa90da27487b29d05ec58961d3c9c682b398b891",
+        "MODALITIES": "81e81312ccf7d356a621cb46286aef020f00909d3b348efed13e850447cf5ab5",
+        "_prep_fit": "61ccf99c07d4a65ab011db969aa05e0b9c1d0886b7a524c5886ab10efe1b1752",
+        "score_view": "6d348fb624ebc552e6cee22aa59c9c289d1650852582808420440eec68b0a886"
+      }
+    },
+    {
+      "upstream": "run_supervised_robustness.py",
+      "upstream_sha256": "9d1a8545ccacd7f2a53846616e1b5f1fda4951987a058e6a11b8e49e98a392c0",
+      "packaged_path": "src/training/supervised.py",
+      "packaging": "selected original definitions; package-relative imports; no mathematical edits",
+      "definitions": {
+        "_models": "90a5467d19b520afe5326362d6359b3f0682f2b3665aad9ba3587590ee4e9112",
+        "_prep": "8dff91e5eebd12c9a7ce1ad3bdd367e876e83c4443f7dfbde7c5d884c35e40ca",
+        "supervised_forward": "0e63de384b1eb5a1732a49ec61ff8e9481409bc534f495a6c060253965812c20"
+      }
+    },
+    {
+      "upstream": "run_session_probe.py",
+      "upstream_sha256": "e7406a2836494cd65ec2a73175141e4c11b92a91d2f9503bb3ffe93addb80425",
+      "packaged_path": "src/training/session_probe.py",
+      "packaging": "selected original definitions; package-relative imports; no mathematical edits",
+      "definitions": {
+        "TRAIN_FRAC": "b55cbb3fa5cb3f387775bc0de007d0751b262677179607c02fb56713fc6ae963",
+        "FAMILIES": "099420c08cebd235a4edd2840ce80ec1c73ddae5535c0e6fd7ab24773167dc74",
+        "assign_family": "95d0c2acec4be4f500be9943a115a0991d0f1e07d0cd6694cea37a5bbe767ca3",
+        "models": "79a82974a05ef6781fc1e35f2f90cde1553de7cb9cca290ea70aa14eed960789",
+        "_prep": "8dff91e5eebd12c9a7ce1ad3bdd367e876e83c4443f7dfbde7c5d884c35e40ca",
+        "session_probe": "ce331683f9292e4a32be939c83c13e091fd684d34cbd9c10c8dbe61f453cda55",
+        "family_ablation": "bdc7a33d3d790701a1dcd698265121f5441f92022dda0facfc7b5432f28bdeae",
+        "permutation_importance_grouped": "1d943b79d7766c16819674160b8939dca55633e54216dc36d507a9b0afd2214a"
+      }
+    },
+    {
+      "upstream": "provot_splits_v5.py",
+      "upstream_sha256": "ad6b1b2de559521c2eccef26bc64ab30cec6318bf29e3a17341c14c19ef9dae4",
+      "packaged_path": "src/training/splits.py",
+      "packaging": "selected original definitions; package-relative imports; no mathematical edits",
+      "definitions": {
+        "FORWARD": "7b9d3c8c15cc195e68271409328dd14e509d6bae97cb1ddb42e90ef43b50473e",
+        "campaign_of_window": "2266b5015f2e2aa1b4a094c45c1ee4c30e57f8d370616a412228d8830c428230",
+        "forward_split": "e174465d9b5feb4ab4925c39a602efd95bc3e741a2ddf6cdfa6b0d4f3e138b13",
+        "time_blocked_split": "b2514e697e09b51bdc07a3b62e9a505327f36cf64a1305d30b5031a28211b2d2",
+        "pre_action_mask": "b5d202c649db9160eda96749122fb32d9425eedd40b41707cb07efe0ba0b168f"
+      }
+    },
+    {
+      "upstream": "provot_featurize.py",
+      "upstream_sha256": "8ff469bb16b70ac687cc1ebedde0d3f49854ef406161b97027f1ee399371cb4f",
+      "packaged_path": "src/training/featurize.py",
+      "packaging": "selected original definitions; package-relative imports; no mathematical edits",
+      "definitions": {
+        "SCALAR_M3": "133e12a1dbc42cb83cb58c19e73fb4d0527bbffdb6c3f4c1fbc8df93f122c6fd",
+        "SCALAR_PROV": "1fba28f575ae3c7ac22d2dc08f6c25c6a624b54e65d2c190cf70001796371d34",
+        "DICT_M3": "4de47bb6a97545239d1e991552637ba738bac728d3025dc89c9d81f21b7869ea",
+        "DICT_PROV": "869e961d6d848b242c2b9e63f1b7e48fb3393ceaed6dddc38ba84e5fc12e598e",
+        "fit_vocab": "4950a26a1df899d22f975e3642ee92c067c825c4b376242f44213804fa2d119d",
+        "build_matrix": "d377c0b68fba1a0d20fbae2b5f9a3bf9f482938ba526c69b000ca1fe0a16aadc"
+      }
+    },
+    {
+      "upstream": "assemble_features.py",
+      "upstream_sha256": "561fb4f4446861fe33d04417282410027a51bdd0d3f1fae52ce0278b4c265b14",
+      "packaged_path": "src/training/assembly.py",
+      "packaging": "selected original definitions; package-relative imports; no mathematical edits",
+      "definitions": {
+        "SPEC": "2c709fcb3a501497c3a61291df9495ed27ccc68dd66432981182875fe6c59d23",
+        "epoch_index": "96c9b4de16722500445312d1c6fabd2649a27cedb87b95c71a560cd905a5b73f",
+        "load_records": "1dad9f7bbe3fa10fba9f559345339bbcee1230681ae592b8bf37c9eaa6707ed1",
+        "fit_vocabs": "858cff366ab734ddebb8061ba7a5094aa1db700fe5e6fd63b211d5402042a9ef",
+        "build_view": "f985c03fb8c2a9b06bb25e27e263676285eb3e582d25d749ae3ae637d4a830ef",
+        "availability": "3b7c8a05752dfd057b9e4cf89a3d120711174059de4e050922b34d3ec0897b11"
+      }
+    },
+    {
+      "upstream": "provot_m3.py",
+      "upstream_sha256": "c3c0069563b123e6165dbc2b9484e7ab9c0cc42edebd1afd842bbba76156bed0",
+      "packaged_path": "src/training/modbus.py",
+      "packaging": "selected original definitions; package-relative imports; no mathematical edits",
+      "definitions": {
+        "READ_FC": "9a8ad472122f9e445c2f46aee5a5f564fe94dbc682eaed4836dab027ef1bd56e",
+        "WRITE_FC": "9a8ad472122f9e445c2f46aee5a5f564fe94dbc682eaed4836dab027ef1bd56e",
+        "PLC_PORT": "1df7d2e6075a2d00e4ee400bdfb6b2bde4b358833346c04514ca95a4b56f190d",
+        "condense": "60623665c1046e1f262700ec4b5d2f4c3749d49ef57077303c9d9f88cf7f8226"
+      }
+    },
+    {
+      "upstream": "provot_prov.py",
+      "upstream_sha256": "3b1c70fa2e29e0cd7e0dd5b52f131f9e54151c1d5f651f12100fa850156efab9",
+      "packaged_path": "src/training/provenance.py",
+      "packaging": "selected original definitions; package-relative imports; no mathematical edits",
+      "definitions": {
+        "PATH_PREFIXES": "fa1301aa6b7fae936eb013d9bde7c62f17022c86552bff18a6d90767861795c3",
+        "EDGE_TYPES": "6c11cda69aa946ea61906b3459dd53f00331fe2bcab44308eb6c2c56473737ce",
+        "_attrs": "b356f66c690831431bd41c8c4d647d8feda3a10f7ec87f547923e3a5a4db277e",
+        "_path_bucket": "2daef4e93d93f53976f826524fb38cba9053b5162b2ba637392a330abeffa7ea",
+        "condense_prov": "d745b04f7f7f489e6112cd61d84fb2bd361948881661e6f74a3646d5082e4540"
+      }
+    },
+    {
+      "upstream": "build_windows_multi.py",
+      "upstream_sha256": "ea93696a487bfb92cda757b8cd05316d9a304f019429cac39b554db349f994da",
+      "packaged_path": "src/training/streaming.py",
+      "packaging": "selected original definitions; package-relative imports; no mathematical edits",
+      "definitions": {
+        "WINDOWS": "1d67af491afcead40a23a8525ad8c49f0f125ad7717070dd3554799d41f07f4e",
+        "_merge_m3": "d89d2e920a4c150409f78c00e759308c1a1200b7fbba3f1c7db3bc20faea8391",
+        "_merge_prov": "34e3ece4eea9b8b3ffbace501dc2795579d9892ff4de589befdae0b110ad6e39",
+        "_m3_new": "7d7f8835281d67644274eb5ec9c9b164c2a6d7288aa58cf0f53f3e4fb856648c",
+        "stream_m3_multi": "33e325dd604e548e2cd4601cf14a1c5192095c4180a9ff584cc15bf55d28a97d",
+        "_prov_new": "9e7c2ede8981d9adc4c27c924712ecf1031358890bf554ff0a91ef8bf5b16ebc",
+        "stream_prov_multi": "51c6b3b706c466eacb58ad01acd6bbde4cb46ec88c9d86253fb9bb0c9c2e6ccc"
+      }
+    },
+    {
+      "upstream": "provot_windows.py",
+      "upstream_sha256": "e69252c608fd5ad3b216ace133114e1110b61a6e5904b511df2d74fa587f4c0b",
+      "packaged_path": "src/training/physical.py",
+      "packaging": "selected original definitions; package-relative imports; no mathematical edits",
+      "definitions": {
+        "m4_window_features": "b0d65899dacf6bd7d8e8d0d2c9323b22eafc5a25cdb188eca18e237c5d77a6ec"
+      }
+    }
+  ]
+}

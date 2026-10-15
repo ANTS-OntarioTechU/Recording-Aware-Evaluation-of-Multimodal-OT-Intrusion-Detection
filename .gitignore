@@ -1,0 +1,60 @@
+# ---- private evidence archive (kept locally, never published) -------------------
+archive/
+*.tar.gz
+*.tgz
+*.zip
+
+# ---- raw dataset and caches ----------------------------------------------------
+data/raw/
+data_cache/
+provot_scratch/
+*.pcap
+*.jsonl
+*.parquet
+*.npz
+!results/frozen_scores/*.npz
+!results/frozen_scores/*.parquet
+!results/frozen_scores/score_grid/*.parquet
+!results/frozen_scores/*.csv.gz
+
+# ---- model checkpoints and fitted objects --------------------------------------
+checkpoints/
+models/
+*.pt
+*.pth
+*.joblib
+*.pkl
+
+# ---- Colab / notebook runtime --------------------------------------------------
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+*-checkpoint.ipynb
+drive/
+sample_data/
+
+# ---- secrets and local configuration -------------------------------------------
+.env
+.env.*
+configs/paths.yaml
+configs/paper_result_contract.json
+configs/paper_result_contract.sha256
+*.secret
+*credentials*
+*token*
+
+# ---- generated temporaries -----------------------------------------------------
+*.tmp
+*.log
+tmp/
+scratch/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+
+# ---- regenerated (non-canonical) outputs ---------------------------------------
+results/regenerated/
+
+# ---- opt-in training inputs, models and new runs -------------------------------
+training_workspace/

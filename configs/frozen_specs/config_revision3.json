@@ -1,0 +1,184 @@
+{
+  "E1_gap": {
+    "bootstrap": "moving-block bootstrap on PERSISTED detector streams only (p2 P-REP M1/M2/M4 atk+cal; m3_scores s42-44): blocks {5,10,30} windows, 1000 reps, seed 42; resample attack sequence and benign-calib sequence independently; report 2.5/97.5 percentiles as descriptive stability, NOT inference",
+    "cross": "benign-calib vs labeled attack windows",
+    "gap": "Delta_CW = AUC_cross - AUC_within",
+    "table_source": "tables/T0_modality_confound.csv (cross_phase_auc, within_phase_auc) \u2014 the paper's detector-score comparison",
+    "within": "labeled attack windows vs buffered non-action windows (1053; +-300 s)"
+  },
+  "E2_result2_session_auc": {
+    "definition": "benign-calib (present) vs attack-recording windows with no attack label (present); same quantity as T0 confound_auc"
+  },
+  "E2_synthetic": {
+    "A": "actual ProvICS attack label vector (128 positives) and buffered-background mask (1053)",
+    "N0": 3117,
+    "N1": 1246,
+    "beta": 1.0,
+    "eps": "N(0,1) iid",
+    "lambda_grid": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "metrics": [
+      "AUC_cross (R1 attack vs R0)",
+      "AUC_within (R1 attack vs R1 buffered background)",
+      "PR lift cross/within",
+      "gap"
+    ],
+    "rationale": "beta=1, sigma=1 gives within AUC Phi(1/sqrt2)~0.76, near the observed M4 within value; fixed before running; no pilot",
+    "reps": 1000,
+    "score": "S = beta*A + lambda*R + eps",
+    "seed": 20260822
+  },
+  "E3_pre_action": {
+    "definition": "attack-recording windows whose END <= first labeled action start (2026-04-16T13:08:41.416Z); n=274; zero overlap with any label",
+    "report": [
+      "n",
+      "alarms",
+      "alarm_rate",
+      "median/mean score",
+      "calib median/mean",
+      "fraction of pre-action windows above calib median"
+    ],
+    "threshold": "98.6th percentile of benign-calib probe scores (1.4% nominal exceedance)"
+  },
+  "E4_ablation": {
+    "configs": [
+      "all",
+      "vocabulary_removed(scalars only)",
+      "vocabulary_only",
+      "each family alone",
+      "leave-one-family-out"
+    ],
+    "families": {
+      "M1": [
+        "size_count",
+        "topology",
+        "diversity",
+        "timing",
+        "vocab_ops",
+        "vocab_etypes",
+        "vocab_pnames",
+        "vocab_pbuckets",
+        "vocab_subtypes"
+      ],
+      "M2": [
+        "size_count",
+        "topology",
+        "diversity",
+        "timing",
+        "vocab_ops",
+        "vocab_etypes",
+        "vocab_pnames",
+        "vocab_pbuckets",
+        "vocab_subtypes"
+      ],
+      "M3": [
+        "volume",
+        "register_stats",
+        "op_mix",
+        "timing",
+        "transaction_id",
+        "vocab_fc",
+        "vocab_reg"
+      ],
+      "M4": [
+        "state_level",
+        "variability",
+        "temporal_change"
+      ]
+    },
+    "metric": [
+      "session AUC (benign-calib vs unlabeled attack)",
+      "pre-action alarm rate at 1.4% calib threshold"
+    ]
+  },
+  "E6_calibration": {
+    "detector_streams": "stageA GRU (seeds 42-44) per held-out campaign; per-modality mods_pfc streams (M1..M4, seeds 42-44)",
+    "metrics": [
+      "PR lift (reference-independent)",
+      "event recall",
+      "UA/h (unmatched alarm episodes per test hour)",
+      "outside-action occupancy",
+      "post-onset TTD median (conditional, with n)"
+    ],
+    "references": {
+      "A": "historical non-action: last 30% (chronological) of no-label windows with window_start < held-out campaign start",
+      "B": "strict pre-action: the 274 windows ending before the first labeled action",
+      "C": "buffered historical non-action: as A but excluding windows within +-300 s of any labeled action (state buffer_excluded)"
+    },
+    "test_segment": "windows with grp==held-out campaign",
+    "threshold": "98.6th percentile of reference scores"
+  },
+  "experiment_set": "paper_a_revision3",
+  "frozen_utc": "2026-08-23T00:18:01.317026+00:00",
+  "inputs": {
+    "events": "metadata/ground_truth_events.csv",
+    "features": "processed/features/windows60_{benign48h,attack22h}.parquet",
+    "meta": "splits/window_meta_*.parquet",
+    "states": "splits/attack_window_states.parquet",
+    "streams": [
+      "experiments/p2_raw_modality_scores.npz",
+      "experiments/m3_scores.npz",
+      "experiments/stageA_gru_scores.npz",
+      "experiments/mods_pfc_scores.npz"
+    ]
+  },
+  "rules": [
+    "no tuning",
+    "no deletion of results",
+    "campaign is the generalization unit",
+    "seeds recorded",
+    "all tables from CSV"
+  ],
+  "session_probe": {
+    "benign_calib": "remaining 936",
+    "benign_train": "earliest 70% of benign windows (2181)",
+    "features": {
+      "M1": {
+        "diversity": 6,
+        "size_count": 7,
+        "timing": 3,
+        "topology": 6,
+        "vocab_etypes": 10,
+        "vocab_ops": 44,
+        "vocab_pbuckets": 24,
+        "vocab_pnames": 62,
+        "vocab_subtypes": 18
+      },
+      "M2": {
+        "diversity": 6,
+        "size_count": 7,
+        "timing": 3,
+        "topology": 6,
+        "vocab_etypes": 8,
+        "vocab_ops": 26,
+        "vocab_pbuckets": 16,
+        "vocab_pnames": 16,
+        "vocab_subtypes": 10
+      },
+      "M3": {
+        "op_mix": 5,
+        "register_stats": 4,
+        "timing": 8,
+        "transaction_id": 2,
+        "vocab_fc": 8,
+        "vocab_reg": 19,
+        "volume": 5
+      },
+      "M4": {
+        "state_level": 88,
+        "temporal_change": 44,
+        "variability": 66
+      }
+    },
+    "model": "IsolationForest(n_estimators=300, random_state=42, contamination='auto')",
+    "nan": "train-median fill",
+    "rows": "only windows where the view is present",
+    "scaler": "StandardScaler fit on benign train",
+    "score": "-score_samples (high=anomalous)"
+  }
+}

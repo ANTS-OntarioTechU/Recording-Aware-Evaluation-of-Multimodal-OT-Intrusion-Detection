@@ -1,0 +1,237 @@
+{
+  "_about": "Machine-readable expected values for the accepted paper. Each entry names the paper location, source table, expected value and tolerance. These checks summarize saved artifacts; they do not rebuild the complete raw-data-to-model pipeline.",
+  "_tolerance_note": "tol reflects the rounding used in the manuscript, not measurement uncertainty.",
+  "entries": [
+    {
+      "id": "delta_cw_range",
+      "paper": "Sec 5.1 / Fig 2b",
+      "source": "results/paper_tables/window_sensitivity_summary.csv",
+      "quantity": "min and max of seed-mean Delta_CW across all 16 modality x window cells",
+      "expected": [
+        0.149,
+        0.535
+      ],
+      "tol": 0.0005,
+      "paper_text": "ranging from 0.149 to 0.535"
+    },
+    {
+      "id": "m4_delta_cw_range",
+      "paper": "Sec 5.1",
+      "source": "results/paper_tables/window_sensitivity_summary.csv",
+      "quantity": "Delta_CW range for M4",
+      "expected": [
+        0.149,
+        0.176
+      ],
+      "tol": 0.0005,
+      "paper_text": "(0.149-0.176)"
+    },
+    {
+      "id": "pre_attack_cyber_auc",
+      "paper": "Sec 5.1",
+      "source": "results/paper_tables/window_sensitivity_summary.csv",
+      "quantity": "pre-attack recording-check AUC range, cyber views M1-M3",
+      "expected": [
+        0.944,
+        0.998
+      ],
+      "tol": 0.0005,
+      "paper_text": "0.944-0.998 for the three cyber views"
+    },
+    {
+      "id": "pre_attack_m4_auc",
+      "paper": "Sec 5.1",
+      "source": "results/paper_tables/window_sensitivity_summary.csv",
+      "quantity": "pre-attack recording-check AUC range, M4",
+      "expected": [
+        0.763,
+        0.786
+      ],
+      "tol": 0.0005,
+      "paper_text": "0.763-0.786 for M4"
+    },
+    {
+      "id": "membership_probe_auc",
+      "paper": "Sec 5.1",
+      "source": "results/paper_tables/session_probe_results.csv",
+      "quantity": "recording-membership probe AUC, M1-M3, logistic regression and random forest, all resolutions",
+      "expected": 1.0,
+      "tol": 0.0005,
+      "comparison": "min",
+      "paper_text": "reaches AUC 1.000 for M1-M3 with both logistic regression and random forest"
+    },
+    {
+      "id": "cyber_only_gap",
+      "paper": "Sec 5.2",
+      "source": "results/paper_tables/physical_anchor_comparison.csv",
+      "quantity": "cyber-only fusion Delta_CW at 5/10/30/60 s",
+      "expected": [
+        0.54,
+        0.528,
+        0.453,
+        0.39
+      ],
+      "tol": 0.0005,
+      "paper_text": "0.540, 0.528, and 0.453 ... at 60 s ... 0.390"
+    },
+    {
+      "id": "all_view_gap",
+      "paper": "Sec 5.2",
+      "source": "results/paper_tables/physical_anchor_comparison.csv",
+      "quantity": "all-view sum-z Delta_CW, mean over window sizes",
+      "expected": 0.23,
+      "tol": 0.005,
+      "paper_text": "reduces the gap to approximately 0.23"
+    },
+    {
+      "id": "all_view_occupancy",
+      "paper": "Sec 5.2",
+      "source": "results/paper_tables/physical_anchor_comparison.csv",
+      "quantity": "all-view sum-z outside-action occupancy range",
+      "expected": [
+        0.93,
+        0.95
+      ],
+      "tol": 0.005,
+      "paper_text": "in alarm during 93-95% of non-action windows"
+    },
+    {
+      "id": "any_overlap_vs_one_to_one",
+      "paper": "Sec 5.2",
+      "source": "results/paper_tables/event_matching_sensitivity.csv",
+      "quantity": "all-view sum-z event recall at 60 s: any-overlap then one-to-one",
+      "expected": [
+        0.963,
+        0.123
+      ],
+      "tol": 0.0005,
+      "paper_text": "any-overlap event recall of 0.963, but its stricter one-to-one event recall is only 0.123"
+    },
+    {
+      "id": "longest_episode_windows",
+      "paper": "Sec 5.2",
+      "source": "results/paper_tables/event_matching_sensitivity.csv",
+      "quantity": "longest all-view sum-z alarm episode at 60 s, in windows",
+      "expected": 227,
+      "tol": 0.5,
+      "paper_text": "the longest spans 227 consecutive 60-s windows (3.8 h)"
+    },
+    {
+      "id": "q_align_min",
+      "paper": "Sec 5.3",
+      "source": "results/paper_tables/temporal_nulls.csv",
+      "quantity": "duration-matched q_align for all-view sum-z at 60 s",
+      "expected": 0.0005,
+      "tol": 1e-06,
+      "paper_text": "q_align = 1/2001 ~ 0.0005"
+    },
+    {
+      "id": "q_align_m3_cyber",
+      "paper": "Sec 5.3",
+      "source": "results/paper_tables/temporal_nulls.csv",
+      "quantity": "duration-matched q_align for M3 and cyber-only fusion at 60 s",
+      "expected": [
+        0.1278,
+        0.1865
+      ],
+      "tol": 0.0005,
+      "paper_text": "0.1278 for M3 and 0.1865 for cyber-only fusion"
+    },
+    {
+      "id": "bootstrap_occupancy",
+      "paper": "Sec 5.3",
+      "source": "results/paper_tables/calibration_bootstrap.csv",
+      "quantity": "bootstrap outside-action occupancy 95% interval at the 1.4% budget: cyber-only then all-view",
+      "expected": [
+        [
+          0.13,
+          0.94
+        ],
+        [
+          0.79,
+          0.98
+        ]
+      ],
+      "tol": 0.005,
+      "paper_text": "0.13-0.94 for cyber-only fusion and 0.79-0.98 for all-view sum-z"
+    },
+    {
+      "id": "smd_post_match",
+      "paper": "Sec 5.1",
+      "source": "results/paper_tables/operating_support_summary.csv",
+      "quantity": "maximum post-match standardized mean difference, range over window sizes",
+      "expected": [
+        0.25,
+        0.47
+      ],
+      "tol": 0.005,
+      "paper_text": "remained between 0.25 and 0.47"
+    },
+    {
+      "id": "physical_state_probe",
+      "paper": "Sec 5.1",
+      "source": "results/paper_tables/operating_support_summary.csv",
+      "quantity": "physical-state-only recording probe AUC range",
+      "expected": [
+        0.834,
+        0.875
+      ],
+      "tol": 0.0005,
+      "paper_text": "AUC 0.834-0.875"
+    },
+    {
+      "id": "buffer_sensitivity_positive",
+      "paper": "Table 5 / Appendix B",
+      "source": "results/paper_tables/supervisor_buffer_sensitivity_summary.csv",
+      "quantity": "number of modality x window settings with positive seed-median Delta_CW at every buffer",
+      "expected": 16,
+      "tol": 0,
+      "paper_text": "All 16 modality-window settings retain a positive seed-median Delta_CW at every buffer"
+    },
+    {
+      "id": "buffer_max_shift",
+      "paper": "Table 5 / Appendix B",
+      "source": "results/paper_tables/supervisor_buffer_sensitivity_summary.csv",
+      "quantity": "largest change in seed-median Delta_CW moving from the 300 s to the 900 s buffer",
+      "expected": 0.0088,
+      "tol": 0.0002,
+      "paper_text": "changes the median gap by less than 0.009",
+      "reporting_note": "The artifact maximum is 0.008827 at window 30 s / M2. The current paper reports less than 0.009. The expected value remains 0.0088 at four decimal places; only the reporting wording has changed."
+    },
+    {
+      "id": "hai_eligible",
+      "paper": "Table 4",
+      "source": "results/paper_tables/hai_portable_core_full.csv",
+      "quantity": "eligible and total HAI reference x target comparisons",
+      "expected": [
+        12,
+        15
+      ],
+      "tol": 0,
+      "paper_text": "Table 4 reports all 12 eligible HAI reference-target comparisons"
+    },
+    {
+      "id": "hai_sign_changes",
+      "paper": "Table 4",
+      "source": "results/paper_tables/hai_portable_core_full.csv",
+      "quantity": "number of eligible target files whose Delta_CW sign is not consistent across references",
+      "expected": 2,
+      "tol": 0,
+      "paper_text": "the sign changes with the selected normal reference for two of the four eligible attack files"
+    },
+    {
+      "id": "synthetic_control",
+      "paper": "Table 2 / Sec 5",
+      "source": "results/paper_tables/e2_synthetic_session_confounding.csv",
+      "quantity": "mean cross AUC at lambda=0 and lambda=2, and same-recording AUC range",
+      "expected": [
+        0.76,
+        0.983,
+        0.76,
+        0.761
+      ],
+      "tol": 0.0005,
+      "paper_text": "0.760 to 0.983 while mean same-recording AUC remains 0.760-0.761"
+    }
+  ]
+}

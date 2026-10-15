@@ -1,0 +1,42 @@
+{
+  "analysis_id": "SUP_BUFFER_V1",
+  "purpose": "Supervisor-requested sensitivity analysis for persistence or recovery in same-recording backgrounds.",
+  "parent_protocol": "frozen/protocol_v5.json",
+  "parent_protocol_sha256": "3e748cababf067b788e70c7e985ea1694bea4103688361ff9dbefeea346ce7d0",
+  "frozen_before_execution": true,
+  "data": {
+    "events": "metadata/ground_truth_events.csv",
+    "attack_metadata": "splits/meta_attack22h_w{5,10,30,60}.parquet",
+    "benign_metadata": "splits/meta_benign48h_w{5,10,30,60}.parquet"
+  },
+  "fixed_detector_configuration": {
+    "model": "IsolationForest",
+    "n_estimators": 300,
+    "max_samples": 256,
+    "bootstrap": false,
+    "seeds": [42, 43, 44, 45, 46],
+    "benign_train_fraction": 0.7,
+    "feature_pipeline": "revision5/src/run_window_sensitivity.py",
+    "prohibited": ["new detector", "hyperparameter search", "threshold tuning", "positive-sample changes"]
+  },
+  "comparison": {
+    "window_seconds": [5, 10, 30, 60],
+    "modalities": ["M1", "M2", "M3", "M4"],
+    "buffers_seconds": [300, 600, 900],
+    "positives": "same labeled attack-action windows at every buffer",
+    "cross_negatives": "same benign evaluation windows at every buffer",
+    "within_negatives": "same attack-recording unlabeled windows outside the exact event-based buffer, via provot_metrics.unlabeled_mask",
+    "primary_quantity": "delta_CW = cross_auc - within_auc"
+  },
+  "acceptance_checks": {
+    "baseline_reproduction": "For buffer=300, each of the 80 resolution x modality x seed cells must reproduce revision5/tables/window_sensitivity_summary.csv within 1e-12 for cross_auc, within_auc, delta_cw, n_action, cross_n_neg, and within_n_neg.",
+    "support_reporting": "Report all cells and retained within-negative support. Do not selectively omit low-support cells; mark any cell with fewer than 3 positives or negatives infeasible.",
+    "scope": "The analysis is descriptive sensitivity analysis. It must not claim causal separation of persistence, recovery, operating regime, or recording context."
+  },
+  "outputs": {
+    "raw": "tables/supervisor_buffer_sensitivity_raw.csv",
+    "summary": "tables/supervisor_buffer_sensitivity_summary.csv",
+    "report": "reports/supervisor_buffer_sensitivity.md",
+    "manifest": "metadata/supervisor_buffer_sensitivity_manifest.json"
+  }
+}

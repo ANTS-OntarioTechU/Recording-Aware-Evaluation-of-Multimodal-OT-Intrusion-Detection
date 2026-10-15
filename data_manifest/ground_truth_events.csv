@@ -1,0 +1,33 @@
+event_id,start,end,campaign,phase,sub_phase,tactic,technique,target,description,src,campaign_id,duration_s
+E01,2026-04-16 13:08:41.416000+00:00,2026-04-16 13:10:12.390000+00:00,C1_aggressive_20260416_130841,1,recon_scan,Discovery,T0846,network,nmap+modbus-NSE+ full recon,c1,C1,90.974
+E02,2026-04-16 13:11:12.391000+00:00,2026-04-16 13:11:19.524000+00:00,C1_aggressive_20260416_130841,2,register_enum,Discovery,T0861,PLC,Fast enum: 32 non-zero regs; FC sweep; stability analysis,c1,C1,7.133
+E03,2026-04-16 13:11:49.524000+00:00,2026-04-16 13:11:57.203000+00:00,C1_aggressive_20260416_130841,3,brute_force,Lateral Movement,T0866,PLC+services,Hydra+Medusa SSH; Hydra HTTP; NodeRED + Fuxa check,c1,C1,7.679
+E04,2026-04-16 13:12:57.204000+00:00,2026-04-16 13:14:57.783000+00:00,C1_aggressive_20260416_130841,4,register_inject,Impair Process Control,T0836,PLC,Max setpoints + valve bypass + mass sensor spoof + 120s monitor,c1,C1,120.579
+E05,2026-04-16 13:16:57.783000+00:00,2026-04-16 13:17:48.816000+00:00,C1_aggressive_20260416_130841,5,dos_flood,Inhibit Response Function,T0814,PLC,"hping3 SYN+UDP flood + Modbus layer flood (600 reqs, 0 errors)",c1,C1,51.033
+E06,2026-04-16 13:18:48.817000+00:00,2026-04-16 13:20:19.606000+00:00,C1_aggressive_20260416_130841,6,restore,,,PLC,Watchdog check + SSH restart if needed + setpoints restored,c1,C1,90.789
+E07,2026-04-16 17:35:19.847000+00:00,2026-04-16 17:35:20.025000+00:00,C2_stealthy_20260416_173519,1,passive_recon,Discovery,T0842,network,60s tcpdump + ARP + netdiscover passive + tshark Modbus decode,c2,C2,0.178
+E08,2026-04-16 17:40:20.026000+00:00,2026-04-16 17:41:42.066000+00:00,C2_stealthy_20260416_173519,2,slow_enum,Discovery,T0861,PLC,Slow enum 33 regs; stability fingerprint,c2,C2,82.04
+E09,2026-04-16 17:51:42.067000+00:00,2026-04-16 17:51:43.368000+00:00,C2_stealthy_20260416_173519,3,credential_use,Lateral Movement,T0862,PLC,Single SSH: uname + id + /etc/passwd harvest,c2,C2,1.301
+E10,2026-04-16 17:56:43.369000+00:00,2026-04-16 18:26:43.479000+00:00,C2_stealthy_20260416_173519,4,setpoint_drift,Impair Process Control,T0836,PLC,Pressure drift: 2492→2865kPa (+15.0%) over 1800s,c2,C2,1800.11
+E11,2026-04-16 18:28:43.480000+00:00,2026-04-16 18:33:43.776000+00:00,C2_stealthy_20260416_173519,5,override_disable,Inhibit Response Function,T0816,PLC,Pressure SP→alarm zone; 300s monitor (override SP preserved — PLC stays alive),c2,C2,300.296
+E12,2026-04-16 18:38:43.777000+00:00,2026-04-16 18:40:18.814000+00:00,C2_stealthy_20260416_173519,6,arp_mitm,Collection,T0830,network,90s bidirectional ARP MITM PLC↔NR+Fuxa; pcap captured; ARP cache flushed,c2,C2,95.037
+E13,2026-04-16 18:41:18.814000+00:00,2026-04-16 18:41:18.824000+00:00,C2_stealthy_20260416_173519,7,cred_exfil,Collection,T0882,Fuxa,InfluxDB token/org/bucket extracted from Fuxa WriteToInflux script,c2,C2,0.01
+E14,2026-04-16 18:43:18.824000+00:00,2026-04-16 18:43:19.029000+00:00,C2_stealthy_20260416_173519,8,historian_tamper,Impact,T0809,InfluxDB,MITM token capture failed — aborted,c2,C2,0.205
+E15,2026-04-16 18:44:19.030000+00:00,2026-04-16 18:44:49.725000+00:00,C2_stealthy_20260416_173519,9,stealth_restore,Defense Evasion,,PLC,Gradual SP restore (51199 raw); override SP restored; PV stabilized; historian last 3min wiped+replaced; SSH logs cleared,c2,C2,30.695
+E16,2026-04-16 22:44:50.007000+00:00,2026-04-16 22:46:02.196000+00:00,C3_sabotage_20260416_224450,1,initial_access,Initial Access,T0862,PLC,Hydra fast-verify + rockyou brute + SSH harvest + HTTP session,c3,C3,72.189
+E17,2026-04-16 22:46:32.196000+00:00,2026-04-16 22:47:02.835000+00:00,C3_sabotage_20260416_224450,2,ladder_upload,Persistence,T0843,PLC,Direct SSH staging file overwrite + CLI compile,c3,C3,30.639
+E18,2026-04-16 22:47:12.835000+00:00,2026-04-16 22:47:30.145000+00:00,C3_sabotage_20260416_224450,3,plc_restart,Execution,T0857,PLC,Graceful core restart via HTTP API,c3,C3,17.31
+E19,2026-04-16 22:48:00.146000+00:00,2026-04-16 22:58:01.385000+00:00,C3_sabotage_20260416_224450,4,damage_observe,Impact,T0831,process,600s monitoring; pressure oscillation confirmed,c3,C3,601.239
+E20,2026-04-16 22:58:01.385000+00:00,2026-04-16 23:00:01.653000+00:00,C3_sabotage_20260416_224450,5,sensor_spoof,Defense Evasion,T0836,PLC,P+L false values written at 3 Hz for 120s,c3,C3,120.268
+E21,2026-04-16 23:00:31.654000+00:00,2026-04-16 23:04:13.026000+00:00,C3_sabotage_20260416_224450,6,evidence_cleanup,Defense Evasion,T0809,PLC,SSH wipe + original ST SSH recompile + PLC restart + setpoints restored,c3,C3,221.372
+E22,2026-04-17 02:04:13.343000+00:00,2026-04-17 02:05:15.650000+00:00,C4_fullspectrum_20260417_020413,1,full_recon,Discovery,T0846,network,masscan+nmap+modbus-NSE+sqlmap full recon,c4,C4,62.307
+E23,2026-04-17 02:07:15.650000+00:00,2026-04-17 02:07:25.741000+00:00,C4_fullspectrum_20260417_020413,2,cred_brute,Credential Access,T0866,all_services,Hydra+Medusa SSH; Hydra HTTP; found=['nodered'],c4,C4,10.091
+E24,2026-04-17 02:08:25.741000+00:00,2026-04-17 02:08:27.117000+00:00,C4_fullspectrum_20260417_020413,3,persistence,Persistence,T0839,NodeRED+RPi,Node-RED drift flow + RPi cron reverse shell planted,c4,C4,1.376
+E25,2026-04-17 02:09:27.118000+00:00,2026-04-17 02:09:27.339000+00:00,C4_fullspectrum_20260417_020413,4,lateral_influxdb,Lateral Movement,T0882,Fuxa,InfluxDB creds: token=FAILED,c4,C4,0.221
+E26,2026-04-17 02:09:57.340000+00:00,2026-04-17 02:11:32.370000+00:00,C4_fullspectrum_20260417_020413,5,arp_mitm,Collection,T0830,network,90s bidirectional ARP MITM; Modbus captured; ARP flushed,c4,C4,95.03
+E27,2026-04-17 02:11:32.370000+00:00,2026-04-17 02:13:32.374000+00:00,C4_fullspectrum_20260417_020413,6,false_data,Defense Evasion,T0836,PLC,Sensor spoof 120s — normal values written during drift window,c4,C4,120.004
+E28,2026-04-17 02:14:02.375000+00:00,2026-04-17 02:14:02.574000+00:00,C4_fullspectrum_20260417_020413,7,historian_poison,Impact,T0809,InfluxDB,SKIPPED — no token,c4,C4,0.199
+E29,2026-04-17 02:14:32.574000+00:00,2026-04-17 02:14:33.238000+00:00,C4_fullspectrum_20260417_020413,8,withdraw,,,none,Silent withdrawal; history cleared; backdoor still active,c4,C4,0.664
+E30,2026-04-17 02:14:33.238000+00:00,2026-04-17 02:44:33.252000+00:00,C4_fullspectrum_20260417_020413,9,dwell,,,none,30-min dwell; Node-RED flow autonomously drifting pressure SP,c4,C4,1800.014
+E31,2026-04-17 02:44:33.252000+00:00,2026-04-17 02:49:33.512000+00:00,C4_fullspectrum_20260417_020413,10,return_escalate,Impact,T0831,PLC,Escalation: 3100kPa SP + level MAX + 300s MITM monitor (override preserved),c4,C4,300.26
+E32,2026-04-17 02:50:33.513000+00:00,2026-04-17 02:52:05.635000+00:00,C4_fullspectrum_20260417_020413,11,full_cleanup,Defense Evasion,T0809,all,Flow removed (tab-scoped); cron removed; logs wiped; setpoints restored,c4,C4,92.122

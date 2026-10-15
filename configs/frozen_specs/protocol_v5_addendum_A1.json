@@ -1,0 +1,53 @@
+{
+  "addendum_id": "A1_detector_spec",
+  "parent_protocol_sha256": "3e748cababf067b788e70c7e985ea1694bea4103688361ff9dbefeea346ce7d0",
+  "frozen_utc": "2026-08-24T18:56:33.520091+00:00",
+  "reason": "protocol_v5.json fixes the feature families, splits and reported quantities for Analysis A but does not pin the per-modality scoring procedure. Rule 10 requires the procedure to be frozen BEFORE execution. No Analysis-A detector has been fitted at the time this addendum is written.",
+  "detector": {
+    "name": "IsolationForest",
+    "rationale": "Already the declared external recording-context diagnostic in this project (HAI / Data4Cyber sections), unsupervised, deterministic given a seed, and cheap enough to run at 4 resolutions x 4 modalities x 3 forward steps x 5 seeds. Analysis A measures EVALUATION-DESIGN sensitivity, not detector quality, so the detector is held fixed.",
+    "params": {
+      "n_estimators": 300,
+      "max_samples": 256,
+      "contamination": "auto",
+      "bootstrap": false
+    },
+    "fit_partition": "TRAIN-partition benign-reference windows ONLY (never attack recording, never held-out)",
+    "preprocessing": {
+      "impute": "train median",
+      "scale": "train mean/SD (StandardScaler)",
+      "order": "impute -> scale -> fit",
+      "fitted_on": "train rows only"
+    },
+    "score_orientation": "score = -IsolationForest.score_samples(X)  (higher = more anomalous)",
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ]
+  },
+  "session_probe_for_A": {
+    "name": "LogisticRegression",
+    "params": {
+      "C": 1.0,
+      "class_weight": "balanced",
+      "max_iter": 2000
+    },
+    "use": "strict pre-action separability only (recording membership), time-blocked split"
+  },
+  "feature_assembly": {
+    "vocabulary_fit_partition": "benign-reference TRAIN rows only",
+    "availability_columns": "split out via schema_guard and REPORTED; never a detector input",
+    "missing_modality_policy": "report availability; rows with an unavailable view are NOT imputed into the view's own matrix - the view is scored only where present"
+  },
+  "acceptance_for_A": {
+    "faithfulness_gate": "w=60 multi-resolution records must reproduce the canonical Rev3 60 s extractor exactly (already verified on held-out slices before extraction)",
+    "resolution_robust_claim": "requires direction of delta_cw AND within-recording ranking at ALL feasible resolutions; infeasible resolutions reported explicitly"
+  },
+  "prohibited": [
+    "changing detector or its parameters after observing any Analysis-A result",
+    "selecting a resolution or modality subset after seeing delta_cw"
+  ]
+}

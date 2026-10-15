@@ -1,0 +1,27 @@
+{
+  "process_variables": [
+    "F1 Valve Position Feedback",
+    "level_sp",
+    "Product",
+    "flow_set",
+    "Purge Valve Feedback",
+    "f2_valve_sp",
+    "Pressure",
+    "F1 Flow",
+    "b_in_purge",
+    "pressure_sp",
+    "c_in_purge",
+    "f2_flow",
+    "a_setpoint",
+    "A in purge PV",
+    "f1_valve_sp",
+    "LevelPV",
+    "purge_valve_sp",
+    "purge_flow",
+    "override_sp",
+    "F2 valve Postion Feedback",
+    "Product Valve SP",
+    "ProductFlowPV"
+  ],
+  "n": 22
+}

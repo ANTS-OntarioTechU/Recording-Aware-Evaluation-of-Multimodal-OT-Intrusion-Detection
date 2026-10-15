@@ -1,0 +1,13 @@
+# Copy to configs/paths.yaml and edit. configs/paths.yaml is gitignored.
+# Only needed for the optional raw-data path; the frozen replay needs nothing here.
+
+project_root: null          # null means infer from the checkout, or set PROVICS_ROOT
+
+raw_data:
+  # Where the pinned ProvICS files are downloaded to. Never inside this repository.
+  cache_dir: ~/provics_raw
+  repo_id: trucyberlab/multimodal-ICS-provenance
+  revision: 18b4b0e1359d3d02347301c55f97c3d98f5dab5c
+
+outputs:
+  regenerated_dir: results/regenerated

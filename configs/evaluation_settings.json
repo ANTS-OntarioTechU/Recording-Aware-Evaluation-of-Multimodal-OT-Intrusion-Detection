@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.1",
+  "paper": {
+    "title": "Recording-Aware Evaluation of Multimodal OT Intrusion Detection",
+    "status": "Accepted for presentation at ICSS 2026"
+  },
+  "dataset": {
+    "name": "ProvICS",
+    "huggingface_repo": "trucyberlab/multimodal-ICS-provenance",
+    "pinned_revision": "18b4b0e1359d3d02347301c55f97c3d98f5dab5c",
+    "manifest": "data_manifest/provics_download_manifest.csv",
+    "ground_truth_events": "data_manifest/ground_truth_events.csv",
+    "raw_data_in_repository": false
+  },
+  "modalities": {
+    "M1": {
+      "name": "supervisory-host provenance",
+      "source_format": "event/provenance graph",
+      "availability_pct": 94.9
+    },
+    "M2": {
+      "name": "PLC/controller provenance",
+      "source_format": "event/provenance graph",
+      "availability_pct": 77.6
+    },
+    "M3": {
+      "name": "decoded Modbus protocol semantics",
+      "source_format": "protocol-event sequence",
+      "availability_pct": 94.9,
+      "reduced_input_note": "The released records contain no register-value field."
+    },
+    "M4": {
+      "name": "physical-process telemetry",
+      "source_format": "22-variable time series, 1 Hz",
+      "availability_pct": 98.7
+    },
+    "availability_denominator": "fraction of the aligned 60-s master grid for which the view is present"
+  },
+  "windowing": {
+    "durations_seconds": [
+      5,
+      10,
+      30,
+      60
+    ],
+    "grid": "epoch-aligned, non-overlapping",
+    "aggregation": "within-window only",
+    "same_recording_background_buffer_seconds": 300,
+    "buffer_scaling": "seconds, held constant across window durations"
+  },
+  "detector": {
+    "primary": "IsolationForest",
+    "n_estimators": 300,
+    "max_samples": 256,
+    "bootstrap": false,
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "frozen_score_seed": 42
+  },
+  "primary_reference": {
+    "recording": "separate_benign",
+    "fit_fraction": 0.7,
+    "calibration": "benign_fitting_partition",
+    "refit_between_campaigns": false
+  },
+  "forward_campaigns": [
+    "C2",
+    "C3",
+    "C4"
+  ],
+  "historical_reference_audit": {
+    "table": "results/paper_tables/v6_forward_partition_audit.csv",
+    "role": "alternative_reference_not_primary_fitting_partitions"
+  },
+  "fusion": {
+    "cyber_only_sum_z": "sum of standardized scores over M1, M2, M3",
+    "all_view_sum_z": "sum of standardized scores over M1, M2, M3, M4",
+    "late_or_max_z": "maximum standardized score across the four modalities",
+    "cca_residual": "one-component CCA residual between cyber and physical scores",
+    "label_use": "primary detectors and fusion methods do not use attack labels as a training target"
+  },
+  "external_check_hai": {
+    "role": "external scope check only",
+    "not": [
+      "a direct performance comparison with ProvICS",
+      "a universal generalization claim",
+      "independent replication across all reference-target rows"
+    ],
+    "eligibility": "at least 20 attack-positive and 20 buffered non-action windows",
+    "eligible_comparisons": 12,
+    "total_comparisons": 15,
+    "excluded": "test1 (14 positive windows)",
+    "independence": "comparisons reuse three reference files and four eligible target files"
+  },
+  "score_metadata": {
+    "attack_pattern": "results/frozen_scores/score_grid/meta_attack22h_w{window_s}.parquet",
+    "benign_pattern": "results/frozen_scores/score_grid/meta_benign48h_w{window_s}.parquet",
+    "row_mapping": "score-array position i corresponds to metadata row i at the same resolution",
+    "availability_masks_included": false,
+    "inventory_only": {
+      "attack": "results/frozen_scores/window_meta_attack22h.parquet",
+      "benign": "results/frozen_scores/window_meta_benign48h.parquet"
+    }
+  }
+}

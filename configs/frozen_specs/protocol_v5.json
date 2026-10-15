@@ -1,0 +1,324 @@
+{
+  "protocol": "Prov-OT Paper A Revision 5",
+  "version": "5.0.0",
+  "frozen_utc": "2026-08-24T18:27:11.076452+00:00",
+  "objective": "Quantify the extent to which modality and fusion scores depend on recording/session-associated variation rather than same-recording attack discrimination. Diagnostic of sensitivity to recording conditioning; NOT a causal decomposition.",
+  "data": {
+    "repo_id": "trucyberlab/multimodal-ICS-provenance",
+    "revision": "18b4b0e1359d3d02347301c55f97c3d98f5dab5c",
+    "recordings": [
+      "attack22h",
+      "benign48h"
+    ],
+    "pcap_excluded": true,
+    "pcap_exclusion_reason": "M3 is derived from modbus.jsonl in the canonical pipeline; pcap is not an input to any declared feature family."
+  },
+  "windowing": {
+    "sizes_s": [
+      5,
+      10,
+      30,
+      60
+    ],
+    "grid": "epoch-aligned non-overlapping",
+    "aggregation": "causal within-window only",
+    "buffer_s": 300,
+    "buffer_scaling": "seconds (constant across resolutions, NOT window counts)",
+    "alignment": "canonical provot_windows.make_window_grid / label_windows",
+    "primary_resolution_for_legacy_comparison": 60
+  },
+  "campaign_forward": {
+    "steps": [
+      {
+        "step": "C2",
+        "train": [
+          "C1"
+        ],
+        "holdout": "C2"
+      },
+      {
+        "step": "C3",
+        "train": [
+          "C1",
+          "C2"
+        ],
+        "holdout": "C3"
+      },
+      {
+        "step": "C4",
+        "train": [
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "holdout": "C4"
+      }
+    ],
+    "independent_unit": "campaign/forward step",
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "seed_role": "repeated fits NESTED within campaign; never pooled as independent observations"
+  },
+  "feature_governance": {
+    "identifier_guard": "src/provot_metrics.assert_no_identifier_features on every candidate matrix",
+    "vocabulary_fit": "TRAIN partition only; out-of-vocabulary mass as explicit __oov",
+    "excluded_from_all_detector_inputs": [
+      "*__present"
+    ],
+    "exclusion_reason": "Modality-availability indicators are recording-availability proxies; prior work found mirror-presence perfectly predicts partition. Availability is REPORTED (spec: report missing-modality availability) but never used as a detector input.",
+    "never_inputs": [
+      "raw IP",
+      "port",
+      "path",
+      "PID",
+      "hash",
+      "scenario id",
+      "session id",
+      "label",
+      "ground truth",
+      "timestamp"
+    ]
+  },
+  "feature_families": {
+    "event_rate": [
+      "n",
+      "req",
+      "resp",
+      "n_edges",
+      "n_vertices",
+      "edges_per_vertex",
+      "n_new_vertices",
+      "new_vertex_rate",
+      "n_samples_m4"
+    ],
+    "timing": [
+      "dt_mean",
+      "dt_std",
+      "dt_med",
+      "dt_p95",
+      "dt_max",
+      "burstiness",
+      "fano",
+      "subsec_active"
+    ],
+    "topology_degree": [
+      "outdeg_mean",
+      "outdeg_max",
+      "outdeg_std",
+      "indeg_mean",
+      "indeg_max",
+      "indeg_std",
+      "proc_frac",
+      "root_frac"
+    ],
+    "operation_mix": [
+      "ops_",
+      "etypes_",
+      "op_entropy",
+      "n_distinct_ops"
+    ],
+    "modbus_fn_addr": [
+      "fc_",
+      "reg_",
+      "reg_entropy",
+      "reg_min",
+      "reg_max",
+      "n_distinct_reg",
+      "read_frac",
+      "write_frac",
+      "wc_mean",
+      "wc_max",
+      "wc_std",
+      "n_units",
+      "n_client_ports",
+      "tid_reset_frac",
+      "tid_span"
+    ],
+    "process_summary": [
+      "pnames_",
+      "pbuckets_",
+      "subtypes_",
+      "name_entropy",
+      "bucket_entropy",
+      "subtype_entropy",
+      "n_distinct_names"
+    ],
+    "vocab_oov": [
+      "__oov",
+      "__ndistinct"
+    ]
+  },
+  "analysis_B_support": {
+    "state_vector": "physical_state.csv numeric process variables (M4 raw), standardized on benign reference",
+    "caliper": 0.2,
+    "caliper_units": "pooled SD (Rubin convention), FROZEN before inspecting any cyber score",
+    "gates": {
+      "G1_within_support_frac_min": 0.3,
+      "G2_retained_frac_min": 0.3,
+      "G3_min_matched_pairs": 100,
+      "G4_post_match_abs_SMD_max": 0.1
+    },
+    "on_failure": "STOP matched analysis; report as identified limitation with the required language",
+    "required_language": "Lack of common support demonstrates that the selected recordings do not permit an operating-state-matched comparison under the stated representation. It does not establish that acquisition artifacts caused the recording difference."
+  },
+  "analysis_C_session_probe": {
+    "target": "recording membership ONLY (benign-reference vs strict pre-action attack-recording windows)",
+    "split": "time-blocked within each recording: first 70% chronological = train, last 30% = test; NEVER shuffled",
+    "models": {
+      "logistic_regression": {
+        "C": 1.0,
+        "class_weight": "balanced",
+        "max_iter": 2000,
+        "solver": "lbfgs",
+        "standardize": true
+      },
+      "random_forest": {
+        "n_estimators": 300,
+        "min_samples_leaf": 5,
+        "class_weight": "balanced_subsample"
+      },
+      "mlp": {
+        "hidden_layer_sizes": [
+          64,
+          32
+        ],
+        "activation": "relu",
+        "solver": "adam",
+        "max_iter": 500,
+        "early_stopping": true,
+        "standardize": true
+      }
+    },
+    "attribution": [
+      "feature-family ablation (held-out)",
+      "permutation importance (held-out)",
+      "grouped semantic family"
+    ],
+    "permitted_conclusion": "The selected feature representations contain recording-membership information under the studied split.",
+    "prohibited": [
+      "the model identifies sessions generally",
+      "a specific feature causes the recording difference"
+    ]
+  },
+  "analysis_D_fusion": {
+    "families": [
+      "M1",
+      "M2",
+      "M3",
+      "M4",
+      "cyber_only_fusion",
+      "sum_z_fusion",
+      "latent_cca",
+      "late_or"
+    ],
+    "key_comparisons": [
+      "cyber_only_fusion vs cyber+M4 fusion",
+      "individual modality vs each fusion method"
+    ],
+    "paired_rule": "identical score streams and identical negative populations for every paired comparison",
+    "m4_correction_claim_requires": [
+      "reduces session sensitivity (|dCW| decreases)",
+      "preserves or improves within-recording discrimination",
+      "under the frozen decision rule"
+    ]
+  },
+  "analysis_E_operating": {
+    "quantile_grid": [
+      0.005,
+      0.01,
+      0.014,
+      0.025,
+      0.05,
+      0.1
+    ],
+    "threshold_selection": "FROZEN grid; no post-hoc preferred threshold",
+    "bootstrap": {
+      "type": "moving-block over calibration windows",
+      "n": 1000,
+      "block_windows": 10,
+      "replicate_steps": [
+        "resample calibration blocks",
+        "derive quantile threshold",
+        "apply to FIXED held-out scores",
+        "record recall/occupancy/unmatched-per-hour"
+      ]
+    },
+    "event_matching_rules": [
+      "any_overlap",
+      "post_onset_alert_start",
+      "one_episode_to_one_event_deterministic"
+    ],
+    "saturation_rule": "one long saturated episode must NOT be reported as independent support for multiple events"
+  },
+  "analysis_F_nulls": {
+    "B": 2000,
+    "p_formula": "p=(b+1)/(B+1)",
+    "nulls": [
+      "duration_matched_pseudo_schedule",
+      "circular_shift"
+    ],
+    "regime_aware_null": "ONLY if Analysis B common support exists AND construction frozen before execution; otherwise report infeasible",
+    "conclusion": "Passing supports attack-episode-envelope alignment, NOT action-specific detection."
+  },
+  "analysis_G_supervised": {
+    "modalities": [
+      "M1",
+      "M2",
+      "M3",
+      "M4"
+    ],
+    "precondition": "verify corrected M2 features are canonical before extending",
+    "identical_to_M3_M4": [
+      "campaign-forward splits",
+      "feature guards",
+      "training-only preprocessing",
+      "cross vs within negative populations"
+    ],
+    "scope": "bounded robustness diagnostic; NOT a search for the best supervised IDS"
+  },
+  "analysis_H_optional": {
+    "gate": "only after A-G complete and reproducible",
+    "model": "one small causal TCN on M4",
+    "frozen_before_fit": true,
+    "prohibited": [
+      "model search",
+      "fusion redesign",
+      "SOTA comparison"
+    ]
+  },
+  "reported_quantities": [
+    "cross_recording_auc",
+    "cross_recording_pr_lift",
+    "within_recording_buffered_auc",
+    "within_recording_pr_lift",
+    "delta_cw",
+    "strict_pre_action_auc",
+    "event_recall",
+    "outside_action_occupancy",
+    "unmatched_alarm_episodes_per_hour",
+    "signed_first_alert_offset",
+    "post_onset_ttd",
+    "post_onset_ttd_support_n",
+    "n_distinct_alarm_episodes",
+    "events_matched_per_alarm_episode"
+  ],
+  "acceptance_rules": {
+    "A_resolution_robust": "Do NOT claim resolution robustness unless direction of delta_cw AND within-recording ranking are reported for ALL feasible resolutions; infeasible resolutions reported explicitly.",
+    "no_pooling": "campaign x seed cells are never pooled as independent observations",
+    "no_post_hoc_tuning": "no change after observing held-out results without a NEW frozen addendum",
+    "job_complete": "output checksum + registry row + verification checks must all pass"
+  },
+  "prohibited_claims": [
+    "causal decomposition of recording difference",
+    "acquisition artifacts caused the difference",
+    "session identification in general",
+    "prevalence across OT datasets",
+    "action-level specificity from temporal nulls",
+    "a specific feature causes the recording difference"
+  ]
+}

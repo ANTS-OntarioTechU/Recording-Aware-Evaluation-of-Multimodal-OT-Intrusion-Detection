@@ -321,14 +321,17 @@ Please credit the original datasets separately from this code. See
 If you use the code or results, please cite:
 
 > M. U. Ozbek, K. El-Khatib, and L. Yang, “Recording-Aware Evaluation of
-> Multimodal OT Intrusion Detection,” *Industrial Control System Security
-> Workshop (ICSS 2026)*, accepted for presentation.
+> Multimodal OT Intrusion Detection,” in *Proc. Industrial Control System Security
+> Workshop (ICSS), IEEE Annual Computer Security Applications Conference (ACSAC 2026)*,
+> Los Angeles, CA, USA, Dec. 2026, accepted for presentation.
 
 ```bibtex
 @inproceedings{ozbek2026recordingaware,
   title     = {Recording-Aware Evaluation of Multimodal OT Intrusion Detection},
   author    = {Ozbek, Mustafa Umut and El-Khatib, Khalil and Yang, Li},
-  booktitle = {Industrial Control System Security Workshop (ICSS 2026)},
+  booktitle = {Industrial Control System Security Workshop (ICSS), IEEE Annual Computer Security Applications Conference (ACSAC 2026)},
+  address   = {Los Angeles, CA, USA},
+  month     = dec,
   year      = {2026},
   note      = {Accepted for presentation}
 }
